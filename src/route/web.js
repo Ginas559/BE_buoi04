@@ -1,5 +1,6 @@
 import express from "express";
 import * as authController from "../controllers/auth.controller.js";
+import * as productController from '../controllers/product.controller';
 import loginController from "../controllers/loginController";
 import { 
     registerLimiter, 
@@ -36,6 +37,8 @@ let initWebRoutes = (app) => {
     router.post('/api/login', loginLimiter, loginValidator, loginController.handleLogin);
     router.post('/api/refresh-token', refreshTokenLimiter, loginController.handleRefreshToken);
     router.post('/api/logout', loginController.handleLogout);
+
+    router.get('/api/products/home', productController.getHomeProducts);
 
     router.get('/user/profile', authenticateToken, authorizeUser, loginController.getUserProfile);
     router.get('/admin/profile', authenticateToken, authorizeAdmin, loginController.getAdminProfile);
