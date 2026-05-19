@@ -1,0 +1,452 @@
+{
+  "info": {
+    "_postman_id": "edit-profile-collection",
+    "name": "Edit Profile API",
+    "description": "Collection for testing Edit Profile API with JWT authentication and rate limiting",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Generate JWT Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Simple JWT token generator for testing\n",
+                  "var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBleGFtcGxlLmNvbSIsImlhdCI6MTcwNDExMTAwMCwiZXhwIjoxNzA0MTk3NDAwfQ.8Z7FhJkL9xK3mQ2pN5bV1xW2yC3dE4fG5hI6jK7lM8n';\n",
+                  "pm.environment.set('jwt_token', token);\n",
+                  "console.log('JWT Token set:', token);\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.org/get",
+              "protocol": "https",
+              "host": [
+                "httpbin.org"
+              ],
+              "path": [
+                "get"
+              ]
+            },
+            "description": "Generate or set JWT token for authentication\n\nNote: In a real scenario, you would call an authentication endpoint to get a token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Profile Operations",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            },
+            "description": "Get user profile information\n\n**Authentication**: JWT Bearer Token required\n**Method**: GET\n**Endpoint**: /api/users/:id"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Profile (PUT)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Set base URL if not already set\n",
+                  "if (!pm.environment.get('base_url')) {\n",
+                  "  pm.environment.set('base_url', 'http://localhost:3000');\n",
+                  "}\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function() {\n",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response has success property', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.success).to.equal(true);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response contains updated user data', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.data).to.have.property('id');\n",
+                  "  pm.expect(jsonData.data).to.have.property('email');\n",
+                  "});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jonathan\",\n  \"lastName\": \"Doe\",\n  \"phone\": \"0987654321\",\n  \"address\": \"456 Oak Avenue\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"bio\": \"Senior Software Developer at XYZ Company\",\n  \"avatar\": \"https://example.com/avatars/jonathan-doe.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "profile"
+              ]
+            },
+            "description": "Update user profile information using PUT method\n\n**Authentication**: JWT Bearer Token required\n**Method**: PUT\n**Endpoint**: /api/users/:id/profile\n**Rate Limit**: 10 requests per 15 minutes\n**Validation**: Input validated using Joi schema\n\n**Body Parameters**:\n- `firstName` (string, optional): 2-50 characters\n- `lastName` (string, optional): 2-50 characters\n- `phone` (string, optional): 10-15 digits\n- `address` (string, optional): max 200 characters\n- `city` (string, optional): max 50 characters\n- `country` (string, optional): max 50 characters\n- `bio` (string, optional): max 500 characters\n- `avatar` (string, optional): valid URI"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Profile (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function() {\n",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response has success property', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.success).to.equal(true);\n",
+                  "});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"0123456789\",\n  \"city\": \"Boston\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "profile"
+              ]
+            },
+            "description": "Partially update user profile information using PATCH method\n\n**Authentication**: JWT Bearer Token required\n**Method**: PATCH\n**Endpoint**: /api/users/:id/profile\n**Rate Limit**: 10 requests per 15 minutes\n**Validation**: Input validated using Joi schema\n\nNote: PATCH allows partial updates, while PUT typically replaces the entire resource."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Test Cases",
+      "item": [
+        {
+          "name": "Test - Missing Authorization Header",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 401', function() {\n",
+                  "  pm.expect(pm.response.code).to.equal(401);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response indicates missing token', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.success).to.equal(false);\n",
+                  "  pm.expect(jsonData.message).to.include('token');\n",
+                  "});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Test\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "profile"
+              ]
+            },
+            "description": "Test: Request without Authorization header should return 401"
+          },
+          "response": []
+        },
+        {
+          "name": "Test - Invalid Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 403', function() {\n",
+                  "  pm.expect(pm.response.code).to.equal(403);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response indicates invalid token', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.success).to.equal(false);\n",
+                  "});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer invalid_token_12345",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Test\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "profile"
+              ]
+            },
+            "description": "Test: Request with invalid token should return 403"
+          },
+          "response": []
+        },
+        {
+          "name": "Test - Invalid Phone Number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 422', function() {\n",
+                  "  pm.expect(pm.response.code).to.equal(422);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response contains validation errors', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.success).to.equal(false);\n",
+                  "  pm.expect(jsonData.errors).to.be.an('array');\n",
+                  "});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "profile"
+              ]
+            },
+            "description": "Test: Invalid phone number (less than 10 digits) should return 422 with validation errors"
+          },
+          "response": []
+        },
+        {
+          "name": "Test - Empty Update Body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 422', function() {\n",
+                  "  pm.expect(pm.response.code).to.equal(422);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test('Response indicates no fields to update', function() {\n",
+                  "  var jsonData = pm.response.json();\n",
+                  "  pm.expect(jsonData.success).to.equal(false);\n",
+                  "});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "profile"
+              ]
+            },
+            "description": "Test: Empty request body should return 422"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set default base_url if not already set\n",
+          "if (!pm.environment.get('base_url')) {\n",
+          "    pm.environment.set('base_url', 'http://localhost:3000');\n",
+          "}\n",
+          "\n",
+          "// Set a sample JWT token if not already set\n",
+          "if (!pm.environment.get('jwt_token')) {\n",
+          "    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBleGFtcGxlLmNvbSIsImlhdCI6MTcwNDExMTAwMCwiZXhwIjoxNzA0MTk3NDAwfQ.8Z7FhJkL9xK3mQ2pN5bV1xW2yC3dE4fG5hI6jK7lM8n';\n",
+          "    pm.environment.set('jwt_token', token);\n",
+          "}\n"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBleGFtcGxlLmNvbSIsImlhdCI6MTcwNDExMTAwMCwiZXhwIjoxNzA0MTk3NDAwfQ.8Z7FhJkL9xK3mQ2pN5bV1xW2yC3dE4fG5hI6jK7lM8n",
+      "type": "string"
+    }
+  ]
+}

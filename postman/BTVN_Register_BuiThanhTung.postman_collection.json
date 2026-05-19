@@ -1,0 +1,725 @@
+{
+  "info": {
+    "_postman_id": "2bedb093-23bb-4891-8c0d-212b161ae3bd",
+    "name": "BTVN_Register_BuiThanhTung",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48493750"
+  },
+  "item": [
+    {
+      "name": "Đăng ký - Gửi OTP",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"hdz95566@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"firstName\": \"Thanh\",\r\n  \"lastName\": \"Gina\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Đăng ký - Gửi OTP",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"hdz95566@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"firstName\": \"Thanh\",\r\n  \"lastName\": \"Gina\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "5"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "4"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:16:19 GMT"
+            },
+            {
+              "key": "X-RateLimit-Reset",
+              "value": "1778462180"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "458"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1ca-L6ONNZVTNQYlxcQ3UF8fWF5TyyQ\""
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"OTP đã được gửi đến email của bạn. Vui lòng kiểm tra và xác nhận để hoàn tất.\",\n    \"tempToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhkejk1NTY2QGxhb2lhLmNvbSIsImhhc2hlZFBhc3N3b3JkIjoiJDJiJDEwJHBxUmt1akhYVmlmRDh6clVqcGIua080bWI0NXJZMVNoV0VZbU8wRXd2S3dSa3NDaDJEbm8yIiwiZmlyc3ROYW1lIjoiVGhhbmgiLCJsYXN0TmFtZSI6IkdpbmEiLCJpYXQiOjE3Nzg0NTg1NzksImV4cCI6MTc3ODQ1OTE3OX0.h5G82YOlZSv0vyqRyijjetWCEJaYO9UcpP5CkKcOvsg\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Xác thực OTP",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"otp\": \"494794\",\r\n  \"tempToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhkejk1NTY2QGxhb2lhLmNvbSIsImhhc2hlZFBhc3N3b3JkIjoiJDJiJDEwJHBxUmt1akhYVmlmRDh6clVqcGIua080bWI0NXJZMVNoV0VZbU8wRXd2S3dSa3NDaDJEbm8yIiwiZmlyc3ROYW1lIjoiVGhhbmgiLCJsYXN0TmFtZSI6IkdpbmEiLCJpYXQiOjE3Nzg0NTg1NzksImV4cCI6MTc3ODQ1OTE3OX0.h5G82YOlZSv0vyqRyijjetWCEJaYO9UcpP5CkKcOvsg\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/verify-otp",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "verify-otp"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Xác thực OTP",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"otp\": \"494794\",\r\n  \"tempToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhkejk1NTY2QGxhb2lhLmNvbSIsImhhc2hlZFBhc3N3b3JkIjoiJDJiJDEwJHBxUmt1akhYVmlmRDh6clVqcGIua080bWI0NXJZMVNoV0VZbU8wRXd2S3dSa3NDaDJEbm8yIiwiZmlyc3ROYW1lIjoiVGhhbmgiLCJsYXN0TmFtZSI6IkdpbmEiLCJpYXQiOjE3Nzg0NTg1NzksImV4cCI6MTc3ODQ1OTE3OX0.h5G82YOlZSv0vyqRyijjetWCEJaYO9UcpP5CkKcOvsg\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/verify-otp",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "verify-otp"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "243"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"f3-HfDuUuEHG6xGKQ1I5Dsx7pVkpKE\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:17:52 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Đăng ký thành công\",\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDEyMDMwYmU2OWQ5ZjAwNGMyZTE5YyIsInJvbGVJZCI6IlIyIiwiaWF0IjoxNzc4NDU4NjcyLCJleHAiOjE3Nzg0NTk1NzJ9.XRA4_EQQiBN7io-ctnZ3Qmk0jtf4Ujnj-dJmyMPywp0\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Đăng ký - Lỗi thiếu First Name",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"ooe35037@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"lastName\": \"Gina\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Đăng ký - Lỗi thiếu First Name",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"ooe35037@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"lastName\": \"Gina\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "5"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:18:58 GMT"
+            },
+            {
+              "key": "X-RateLimit-Reset",
+              "value": "1778462180"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "136"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"88-3suBmynE5ocFmYDu7cTjRdfenWo\""
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"errors\": [\n        {\n            \"type\": \"field\",\n            \"value\": \"\",\n            \"msg\": \"Họ và tên đệm không được để trống\",\n            \"path\": \"firstName\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Đăng ký - Lỗi sai định dạng Email",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"ooe35037@@@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"firstName\": \"Thanh\",\r\n  \"lastName\": \"Gina\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Đăng ký - Lỗi sai định dạng Email",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"ooe35037@@@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"firstName\": \"Thanh\",\r\n  \"lastName\": \"Gina\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "5"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "2"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:19:19 GMT"
+            },
+            {
+              "key": "X-RateLimit-Reset",
+              "value": "1778462180"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "125"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"7d-fnCD9yHQlYiW3bR7K2eunZ8WmsQ\""
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"errors\": [\n        {\n            \"type\": \"field\",\n            \"value\": \"ooe35037@@@laoia.com\",\n            \"msg\": \"Email không hợp lệ\",\n            \"path\": \"email\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Xác thực - Sai mã OTP",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"otp\": \"000000\",\r\n  \"tempToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9vZTM1MDM3QGxhb2lhLmNvbSIsImhhc2hlZFBhc3N3b3JkIjoiJDJiJDEwJEllSW4yS1NPZXpvR09UaGVtN1RTUE85VjlFRUVVVFlES295ZHRCTUFBYS8zQnpzd3I3VDZxIiwiZmlyc3ROYW1lIjoiVGhhbmgiLCJsYXN0TmFtZSI6IkdpbmEiLCJpYXQiOjE3Nzg0NTg4MDYsImV4cCI6MTc3ODQ1OTQwNn0.wRbkzSX9gqoJ9iSNsoUQNGsW2rDvnENV5DLv0M48Uio\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/verify-otp",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "verify-otp"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Xác thực - Sai mã OTP",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"otp\": \"000000\",\r\n  \"tempToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9vZTM1MDM3QGxhb2lhLmNvbSIsImhhc2hlZFBhc3N3b3JkIjoiJDJiJDEwJEllSW4yS1NPZXpvR09UaGVtN1RTUE85VjlFRUVVVFlES295ZHRCTUFBYS8zQnpzd3I3VDZxIiwiZmlyc3ROYW1lIjoiVGhhbmgiLCJsYXN0TmFtZSI6IkdpbmEiLCJpYXQiOjE3Nzg0NTg4MDYsImV4cCI6MTc3ODQ1OTQwNn0.wRbkzSX9gqoJ9iSNsoUQNGsW2rDvnENV5DLv0M48Uio\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/verify-otp",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "verify-otp"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "57"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"39-n9nhKketHdtEg66j9gQZFG3j/mc\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:20:42 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"OTP không hợp lệ hoặc đã hết hạn\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Đăng ký - Kiểm tra Rate Limit",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"fhx42058@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"firstName\": \"Thanh\",\r\n  \"lastName\": \"Gina\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Đăng ký - Kiểm tra Rate Limit",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"fhx42058@laoia.com\",\r\n  \"password\": \"123456\",\r\n  \"firstName\": \"Thanh\",\r\n  \"lastName\": \"Gina\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "5"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:22:32 GMT"
+            },
+            {
+              "key": "X-RateLimit-Reset",
+              "value": "1778462180"
+            },
+            {
+              "key": "Retry-After",
+              "value": "3227"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "81"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"51-o7n8r3+xwW+bvo9zs14GH58533U\""
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"Quá nhiều yêu cầu đăng ký, vui lòng thử lại sau 1 giờ\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Đăng ký - Trùng Email",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"hdz95566@laoia.com\",\r\n  \"password\": \"123456abc\",\r\n  \"firstName\": \"Thanh Thanh\",\r\n  \"lastName\": \"Gina Gina abc\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8088/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Đăng ký - Trùng Email",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"hdz95566@laoia.com\",\r\n  \"password\": \"123456abc\",\r\n  \"firstName\": \"Thanh Thanh\",\r\n  \"lastName\": \"Gina Gina abc\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "5"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 11 May 2026 00:21:52 GMT"
+            },
+            {
+              "key": "X-RateLimit-Reset",
+              "value": "1778462180"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "43"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2b-kymPlWzxhBKmiIxkplLGVo1H+jE\""
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"Email đã được sử dụng\"\n}"
+        }
+      ]
+    }
+  ]
+}
