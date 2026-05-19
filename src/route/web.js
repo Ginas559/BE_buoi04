@@ -1,5 +1,6 @@
 import express from "express";
 import * as authController from "../controllers/auth.controller.js";
+import * as articleController from '../controllers/article.controller';
 import * as productController from '../controllers/product.controller';
 import loginController from "../controllers/loginController";
 import { 
@@ -39,6 +40,9 @@ let initWebRoutes = (app) => {
     router.post('/api/logout', loginController.handleLogout);
 
     router.get('/api/products/home', productController.getHomeProducts);
+    router.get('/api/products/:slug', productController.getProductDetail);
+    router.get('/api/articles/home', articleController.getHomeArticles);
+    router.get('/api/articles/:slug', articleController.getArticleDetail);
 
     router.get('/user/profile', authenticateToken, authorizeUser, loginController.getUserProfile);
     router.get('/admin/profile', authenticateToken, authorizeAdmin, loginController.getAdminProfile);

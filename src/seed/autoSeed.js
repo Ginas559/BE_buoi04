@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/user';
 import Product from '../models/product.model';
+import Article from '../models/article.model';
 
-const catalogSeed = [
+const productSeed = [
     {
         slug: 'iphone-16-pro-max-256gb',
         name: 'iPhone 16 Pro Max 256GB',
@@ -12,8 +13,10 @@ const catalogSeed = [
         price: 30990000,
         oldPrice: 34490000,
         discount: 10,
+        stock: 36,
         soldCount: 980,
         rating: 4.9,
+        description: 'Flagship cao cấp với màn hình lớn, camera tele nâng cấp và hiệu năng mạnh cho nhu cầu chụp ảnh, làm việc và giải trí.',
         shortDescription: 'Flagship chip mới, camera tele nâng cấp, pin tốt hơn.',
         isPromotion: true,
         isLatest: true,
@@ -28,8 +31,10 @@ const catalogSeed = [
         price: 26990000,
         oldPrice: 31990000,
         discount: 15,
+        stock: 24,
         soldCount: 870,
         rating: 4.8,
+        description: 'Màn hình lớn, bút S-Pen, camera zoom xa và thời lượng pin đủ dùng cả ngày cho người dùng chuyên nghiệp.',
         shortDescription: 'Bút S-Pen tích hợp, màn hình lớn, camera zoom xa.',
         isPromotion: true,
         isLatest: true,
@@ -44,8 +49,10 @@ const catalogSeed = [
         price: 18990000,
         oldPrice: 21590000,
         discount: 12,
+        stock: 18,
         soldCount: 710,
         rating: 4.7,
+        description: 'Thiết kế cao cấp, camera hợp tác Leica và sạc nhanh công suất lớn cho trải nghiệm sử dụng linh hoạt.',
         shortDescription: 'Hiệu năng mạnh, camera Leica, sạc nhanh công suất cao.',
         isPromotion: true,
         isLatest: true,
@@ -60,8 +67,10 @@ const catalogSeed = [
         price: 17990000,
         oldPrice: 19590000,
         discount: 8,
+        stock: 12,
         soldCount: 620,
         rating: 4.6,
+        description: 'Máy ảnh mạnh, màn hình mượt, thiết kế mỏng nhẹ và tối ưu cho nhu cầu chụp ảnh chân dung.',
         shortDescription: 'Thiết kế cao cấp, màn hình mượt và camera chân dung đẹp.',
         isPromotion: true,
         isLatest: false,
@@ -76,8 +85,10 @@ const catalogSeed = [
         price: 29990000,
         oldPrice: 31990000,
         discount: 6,
+        stock: 15,
         soldCount: 430,
         rating: 4.9,
+        description: 'Laptop mỏng nhẹ, pin dài, phù hợp học tập, làm việc và di chuyển nhiều.',
         shortDescription: 'Laptop mỏng nhẹ, pin dài, phù hợp học tập và công việc.',
         isPromotion: false,
         isLatest: true,
@@ -92,8 +103,10 @@ const catalogSeed = [
         price: 26990000,
         oldPrice: 28990000,
         discount: 7,
+        stock: 11,
         soldCount: 390,
         rating: 4.8,
+        description: 'Thiết bị đa nhiệm mạnh mẽ, màn hình đẹp, phù hợp sáng tạo nội dung và học tập.',
         shortDescription: 'Màn hình đẹp, hiệu năng cao, đa nhiệm tốt cho creator.',
         isPromotion: false,
         isLatest: true,
@@ -108,8 +121,10 @@ const catalogSeed = [
         price: 48990000,
         oldPrice: 51990000,
         discount: 5,
+        stock: 8,
         soldCount: 250,
         rating: 4.7,
+        description: 'Laptop gaming cao cấp với hiệu năng lớn, tản nhiệt tốt và màn hình tốc độ cao.',
         shortDescription: 'Laptop gaming cao cấp, tản nhiệt tốt, màn hình tần số quét cao.',
         isPromotion: false,
         isLatest: true,
@@ -124,8 +139,10 @@ const catalogSeed = [
         price: 42990000,
         oldPrice: 45990000,
         discount: 6,
+        stock: 7,
         soldCount: 220,
         rating: 4.8,
+        description: 'Ultrabook sang trọng, gọn nhẹ, phù hợp dân văn phòng và công việc sáng tạo.',
         shortDescription: 'Ultrabook sang trọng, hiệu năng ổn định cho dân văn phòng.',
         isPromotion: false,
         isLatest: true,
@@ -140,8 +157,10 @@ const catalogSeed = [
         price: 5490000,
         oldPrice: 6290000,
         discount: 13,
+        stock: 42,
         soldCount: 1280,
         rating: 4.9,
+        description: 'Tai nghe cao cấp chống ồn chủ động, âm thanh chi tiết, pin tốt và kết nối tiện dụng.',
         shortDescription: 'Chống ồn chủ động tốt, âm thanh chi tiết, pin ổn định.',
         isPromotion: true,
         isLatest: false,
@@ -156,8 +175,10 @@ const catalogSeed = [
         price: 9990000,
         oldPrice: 11490000,
         discount: 12,
+        stock: 29,
         soldCount: 940,
         rating: 4.8,
+        description: 'Đồng hồ thông minh theo dõi sức khỏe, tập luyện và đồng bộ chặt với hệ sinh thái Apple.',
         shortDescription: 'Theo dõi sức khỏe toàn diện, đồng bộ tốt với hệ sinh thái Apple.',
         isPromotion: true,
         isLatest: false,
@@ -172,8 +193,10 @@ const catalogSeed = [
         price: 4290000,
         oldPrice: 4990000,
         discount: 14,
+        stock: 33,
         soldCount: 810,
         rating: 4.7,
+        description: 'Tai nghe gọn nhẹ, âm thanh sống động, chống ồn hiệu quả, phù hợp nghe nhạc và gọi điện.',
         shortDescription: 'Thiết kế gọn nhẹ, âm thanh sống động, chống ồn hiệu quả.',
         isPromotion: true,
         isLatest: false,
@@ -188,14 +211,102 @@ const catalogSeed = [
         price: 890000,
         oldPrice: 1190000,
         discount: 25,
+        stock: 128,
         soldCount: 1520,
         rating: 4.8,
+        description: 'Củ sạc GaN đa cổng, nhỏ gọn, tối ưu cho điện thoại, tablet và laptop mỏng nhẹ.',
         shortDescription: 'Củ sạc nhỏ gọn, đa cổng, tối ưu cho điện thoại và laptop.',
         isPromotion: true,
         isLatest: false,
         isBestSeller: true,
     },
 ];
+
+const articleSeed = [
+    {
+        slug: 'top-5-dien-thoai-5g-dang-mua-nhat-2026',
+        title: 'Top 5 điện thoại 5G đáng mua nhất 2026',
+        category: 'Đánh giá',
+        author: 'Tech Team',
+        coverImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=900&q=80',
+        ],
+        summary: 'Danh sách smartphone nổi bật về hiệu năng, camera, pin và mức giá dễ tiếp cận.',
+        content: 'Năm 2026 thị trường điện thoại 5G tiếp tục bùng nổ với nhiều lựa chọn mạnh ở cả phân khúc cao cấp lẫn tầm trung. Bài viết này tổng hợp những mẫu đáng chú ý nhất dựa trên hiệu năng, camera, pin và trải nghiệm sử dụng thực tế.',
+        tags: ['5G', 'điện thoại', 'đánh giá'],
+        views: 1280,
+        isLatest: true,
+    },
+    {
+        slug: 'meo-chon-laptop-cho-sinh-vien-va-dan-van-phong',
+        title: 'Mẹo chọn laptop cho sinh viên và dân văn phòng',
+        category: 'Tư vấn',
+        author: 'Tech Team',
+        coverImage: 'https://images.unsplash.com/photo-1517336714739-489689fd1ca8?auto=format&fit=crop&w=900&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1517336714739-489689fd1ca8?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=900&q=80',
+        ],
+        summary: 'Tiêu chí quan trọng khi chọn laptop theo nhu cầu học tập, làm việc và di chuyển.',
+        content: 'Khi chọn laptop, bạn nên cân nhắc trọng lượng, thời lượng pin, hiệu năng và cổng kết nối. Với sinh viên và dân văn phòng, một chiếc ultrabook mỏng nhẹ là lựa chọn tối ưu hơn máy quá nặng hoặc cấu hình quá cao.',
+        tags: ['laptop', 'tư vấn', 'sinh viên'],
+        views: 980,
+        isLatest: true,
+    },
+    {
+        slug: 'tai-nghe-chong-on-co-dang-tien-khong',
+        title: 'Tai nghe chống ồn có đáng tiền không?',
+        category: 'Công nghệ',
+        author: 'Tech Team',
+        coverImage: 'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1606400082777-ef05f3c5f89a?auto=format&fit=crop&w=900&q=80',
+        ],
+        summary: 'Phân tích lợi ích thực tế của tai nghe ANC trong học tập, làm việc và di chuyển.',
+        content: 'Tai nghe chống ồn rất hữu ích nếu bạn thường xuyên làm việc ở quán cà phê, văn phòng mở hoặc đi lại nhiều. Mức giá hiện nay đã dễ chịu hơn trước, nhưng cần ưu tiên khả năng đeo thoải mái và chất âm phù hợp.',
+        tags: ['tai nghe', 'ANC', 'phụ kiện'],
+        views: 760,
+        isLatest: true,
+    },
+    {
+        slug: 'so-sanh-iphone-16-pro-max-va-galaxy-s25-ultra',
+        title: 'So sánh iPhone 16 Pro Max và Galaxy S25 Ultra',
+        category: 'So sánh',
+        author: 'Tech Team',
+        coverImage: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=900&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=900&q=80',
+        ],
+        summary: 'Hai flagship đầu bảng với thế mạnh riêng về hệ sinh thái, camera và trải nghiệm AI.',
+        content: 'Nếu bạn đang cân nhắc giữa iPhone và Galaxy, hãy xem xét hệ sinh thái, thời lượng cập nhật phần mềm, camera và thói quen sử dụng của mình. Mỗi dòng máy đều có lợi thế rõ ràng cho từng nhóm người dùng.',
+        tags: ['so sánh', 'flagship', 'Apple', 'Samsung'],
+        views: 1560,
+        isLatest: true,
+    },
+];
+
+const decorateProductSeed = (item, index) => {
+    const extraGallery = [
+        'https://images.unsplash.com/photo-1512499617640-c2f99912b3f0?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
+    ];
+
+    return {
+        ...item,
+        images: [item.image, extraGallery[index % extraGallery.length]],
+        description: item.description || item.shortDescription,
+    };
+};
+
+const decorateArticleSeed = (item) => ({
+    ...item,
+    images: item.images?.length ? item.images : [item.coverImage],
+    content: item.content || item.summary,
+});
 
 export const seedInitialData = async () => {
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@smartzone.vn';
@@ -220,18 +331,27 @@ export const seedInitialData = async () => {
         console.log('Da seed tai khoan admin R1 mac dinh.');
     }
 
-    const productOperations = catalogSeed.map((item) => ({
-        updateOne: {
-            filter: { slug: item.slug },
-            update: { $set: item },
-            upsert: true,
-        },
-    }));
+    await Product.bulkWrite(
+        productSeed.map((item, index) => ({
+            updateOne: {
+                filter: { slug: item.slug },
+                update: { $set: decorateProductSeed(item, index) },
+                upsert: true,
+            },
+        })),
+        { ordered: false }
+    );
 
-    if (productOperations.length > 0) {
-        const result = await Product.bulkWrite(productOperations, { ordered: false });
-        const createdCount = Number(result?.upsertedCount || 0);
-        const modifiedCount = Number(result?.modifiedCount || 0);
-        console.log(`Da dong bo catalog san pham: them moi ${createdCount}, cap nhat ${modifiedCount}.`);
-    }
+    await Article.bulkWrite(
+        articleSeed.map((item) => ({
+            updateOne: {
+                filter: { slug: item.slug },
+                update: { $set: decorateArticleSeed(item) },
+                upsert: true,
+            },
+        })),
+        { ordered: false }
+    );
+
+    console.log('Da dong bo catalog san pham va bai viet.');
 };
