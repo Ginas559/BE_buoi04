@@ -1,4 +1,9 @@
-import { getHomeSections, getProductDetailBySlug } from '../services/product.service';
+import {
+    getHomeSections,
+    getProductCategories,
+    getProductsSearchService,
+    getProductDetailBySlug,
+} from '../services/product.service';
 
 export const getHomeProducts = async (req, res) => {
     try {
@@ -43,6 +48,42 @@ export const getProductDetail = async (req, res) => {
         return res.status(500).json({
             errCode: -1,
             errMessage: 'Lỗi server khi lấy chi tiết sản phẩm',
+        });
+    }
+};
+
+export const getProductCategoriesController = async (req, res) => {
+    try {
+        const categories = await getProductCategories();
+
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'Lấy danh mục thành công',
+            data: categories,
+        });
+    } catch (error) {
+        console.error('Product Categories Controller Error:', error);
+        return res.status(500).json({
+            errCode: -1,
+            errMessage: 'Lỗi server khi lấy danh mục sản phẩm',
+        });
+    }
+};
+
+export const searchProducts = async (req, res) => {
+    try {
+        const products = await getProductsSearchService(req.query || {});
+
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'Lấy danh sách sản phẩm thành công',
+            data: products,
+        });
+    } catch (error) {
+        console.error('Product Search Controller Error:', error);
+        return res.status(500).json({
+            errCode: -1,
+            errMessage: 'Lỗi server khi tìm kiếm sản phẩm',
         });
     }
 };

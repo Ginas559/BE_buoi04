@@ -39,6 +39,8 @@ let initWebRoutes = (app) => {
     router.post('/api/refresh-token', refreshTokenLimiter, loginController.handleRefreshToken);
     router.post('/api/logout', loginController.handleLogout);
 
+    router.get('/api/products/categories', productController.getProductCategoriesController);
+    router.get('/api/products', productController.searchProducts);
     router.get('/api/products/home', productController.getHomeProducts);
     router.get('/api/products/:slug', productController.getProductDetail);
     router.get('/api/articles/home', articleController.getHomeArticles);
