@@ -12,8 +12,13 @@ const connectDB = async () => {
         await mongoose.connect(uri);
         console.log('Kết nối MongoDB thành công!');
 
-        // Seed dữ liệu khởi tạo theo kiểu idempotent: có thì bỏ qua, thiếu thì thêm.
-        await seedInitialData();
+        // Seed dữ liệu khởi tạo chỉ khi biến môi trường SEED_INITIAL_DATA=true
+        if (process.env.SEED_INITIAL_DATA === 'true') {
+            console.log('SEED_INITIAL_DATA=true -> running seedInitialData()');
+            await seedInitialData();
+        } else {
+            console.log('SEED_INITIAL_DATA not set to true -> skipping initial data seed.');
+        }
     } catch (error) {
         console.error('Kết nối MongoDB thất bại:', error);
     }
